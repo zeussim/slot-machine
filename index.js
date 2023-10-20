@@ -1,16 +1,16 @@
 (function () {
   const items = [
     '🍭',
-    '❌',
-    '⛄️',
+    '🚁',
+    '🪂️',
     '🦄',
     '🍌',
-    '💩',
-    '👻',
+    '🛰️',
+    '🛩️',
     '😻',
     '💵',
-    '🤡',    
-    '🦖',
+    '🍁',    
+    '✈️',
     '🍎',
     '😂',
     '🚀',
@@ -20,7 +20,7 @@
   document.querySelector('#spinner').addEventListener('click', spin);
   document.querySelector('#reseter').addEventListener('click', reseter);
   //document.querySelector('#reseter').addEventListener('click', init);
-  let totalNumber = 5;
+  let totalNumber = 50;
   let selectNumber = [];
   
   function shufflearray(array) {
@@ -36,7 +36,9 @@
   }
   
   function reseter() {
-	  document.getElementById('snum').value = '';
+	  //document.getElementById('snum').value = '';
+	  let objparent = document.getElementById("cards");
+	  objparent.replaceChildren();
 	  selectNumber = [];
 	  init(true, 1, 2);
   }
@@ -162,6 +164,7 @@
   async function spin() {
 	document.querySelector('#spinner').disabled = true;
 	document.querySelector('#reseter').disabled = true;
+	document.querySelector('#tnum').disabled = true;
     init(false, 1, 2);
     
     for (const door of doors) {
@@ -175,14 +178,17 @@
 		//alert(boxs[1].innerText);
 		if(boxs[1].innerText != ''){
 			selectNumber.push(Number(boxs[1].innerText));
-			let tnum = document.getElementById('snum').value;
-			if(tnum == ''){
-				document.getElementById('snum').value = boxs[1].innerText;
-			}else{
-				document.getElementById('snum').value = tnum +", "+boxs[1].innerText;
-			}			
+
+			let circleCnt = document.querySelectorAll('.circle');
+			let objparent = document.getElementById("cards");
+			let newDiv = document.createElement("div");
+			newDiv.innerText = boxs[1].innerText;
+			newDiv.setAttribute("class", "circle");
+			objparent.appendChild(newDiv);
+				
 			document.querySelector('#spinner').disabled = false;
 			document.querySelector('#reseter').disabled = false;
+			document.querySelector('#tnum').disabled = false;
 		}		 
 	}, 3000);
   }
